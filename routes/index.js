@@ -23,7 +23,7 @@ router.get('/login', function (req, res, next) {
 router.get('/delete', async function (req, res, next) {
     if (req.session.loggedin === true) {
         req.session.loggedin = false;
-        await promisePool.query('DELETE FROM fmusers WHERE id = ?', [req.session.userid],);
+        await promisePool.query('DELETE FROM fmusers3 WHERE id = ?', [req.session.userid],);
         return res.redirect('/login');
     }
 });
@@ -49,7 +49,7 @@ router.post('/login', async function (req, res, next) {
         return res.json([errors]);
     }
 
-    const [users] = await promisePool.query('SELECT * FROM fmusers WHERE name = ?', [username],);
+    const [users] = await promisePool.query('SELECT * FROM fmusers3 WHERE name = ?', [username],);
     if(users.length > 0) {
     bcrypt.compare(password, users[0].password, function (err, result) {
         if (result === true) {
@@ -77,7 +77,7 @@ router.get('/profile', async function (req, res, next) {
         
         return res.status(401).send('Access Denied');
     } else {
-    const [username] = await promisePool.query('SELECT * FROM fmusers WHERE id = ?', [req.session.userid],);
+    const [username] = await promisePool.query('SELECT * FROM fmusers3 WHERE id = ?', [req.session.userid],);
     res.render('profile.njk', {
         title: 'Profile',
         username: username[0].name,
@@ -106,7 +106,7 @@ router.post('/register', async function (req, res, next){
     if (password !== passwordConfirmation) {
         errors.push('Passwords do not match');
     }
-    const [userCheck] = await promisePool.query('SELECT name FROM fmusers WHERE name = ?',[username],);
+    const [userCheck] = await promisePool.query('SELECT name FROM fmusers3 WHERE name = ?',[username],);
     if (userCheck.length > 0){
         errors.push('Username is already taken');
     }
@@ -114,7 +114,7 @@ router.post('/register', async function (req, res, next){
         return res.json([errors]);
     } else {
         bcrypt.hash(password, 10, async function (err, hash) {
-            const [newUser] = await promisePool.query('INSERT INTO fmusers (name, password) VALUES (?, ?)', [username, hash])
+            const [newUser] = await promisePool.query('INSERT INTO fmusers3 (name, password) VALUES (?, ?)', [username, hash])
             return res.redirect('/login');
         });
         

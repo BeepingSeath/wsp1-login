@@ -29,6 +29,7 @@ Ska göra klart Test:4 nästa gång :D
 
 SEE YOU GUYS NEXT TIME!!! Don't forget to subscribe and like if you liked, dislike if you disliked, And I'm out.
 
+v.8 Fredag
 Vi gjorde lite coola saker, Alla tester funkar, man kan ta bort användare. INGA PROBLEM
 
 SEE YOU GUYS NEXT TIME!!! Don't forget to subscribe and like if you liked, dislike if you disliked, And I'm out.
